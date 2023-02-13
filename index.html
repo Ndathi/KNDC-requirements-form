@@ -21,44 +21,150 @@
               placeholder="Enter ur organization name"
             />
           </div>
+          <div class="form-control">
+            <label for="name">Street and building address</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">City and County</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">Postal Address and Code</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">Number of branches</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">Contact Person Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">Contact</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="name">Phone</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
         </div>
       </form>
       <div class="org-nfrastructure">
-        <p>Infrastructure details</p>
+        <h2>Infrastructure details</h2>
         <table>
           <thead>
             <tr>
-            <th>Application</th>
-            <th>Operating System</th>
-            <th>CPU</th>
-            <th>RAM</th>
-            <th>Storage</th>
-            <th>Bandwidth</th>
+              <th>Application</th>
+              <th>Operating System</th>
+              <th>CPU</th>
+              <th>RAM</th>
+              <th>Storage</th>
+              <th>Bandwidth</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table-rows">
             <tr>
-                <td>
-                <input type="text" name="" id="">
-                </td>
-                <td>
-                <input type="text" name="" id="">
-                </td>
-                <td>
-                <input type="text" name="" id="">
-                </td>
-                <td>
-                <input type="text" name="" id="">
-                </td>
-                <td>
-                <input type="text" name="" id="">
-                </td>
-                <td>
-                <input type="text" name="" id="">
-                </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
+              <td>
+                <input type="text" name="" id="" />
+              </td>
             </tr>
           </tbody>
         </table>
+
+        <button onclick="addInput()">ADD ANOTHER</button>
+        <script>
+          const container = document.getElementById("table-rows");
+
+          function addInput() {
+            let input = document.createElement("input");
+            container.appendChild(input);
+          }
+        </script>
+      </div>
+
+      <div class="service-interested-in">
+        <h2>
+          Kindly indicate the service you are interested in at Konza National
+          Data Center.
+        </h2>
+        <div class="check-box">
+          <label for="check-item">Virtual Machines</label>
+          <input type="checkbox" name="check-item" id="" /> <br />
+          <input type="checkbox" name="" id="" />Cloud Server Backup <br />
+          Service(CSBS) Indicate the CSBS quantity required<input
+            type="text"
+            name=""
+            id=""
+          />
+        </div>
+        <div class="check-box">
+          <label for="check-item">Bare Metal Servers</label>
+          <input type="checkbox" name="check-item" id="" />
+        </div>
+        <div class="check-box">
+          <label for="check-item">Web Hosting</label>
+          <input type="checkbox" name="check-item" id="" />
+        </div>
+        <div class="check-box">
+          <label for="check-item">Virtual Desktop Infrastructure</label>
+          <input type="checkbox" name="check-item" id="" />
+        </div>
+        <div class="check-box">
+          <label for="check-item">Colocation</label>
+          <input type="checkbox" name="check-item" id="" />
+        </div>
       </div>
     </div>
   </body>
