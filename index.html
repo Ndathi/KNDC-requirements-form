@@ -106,15 +106,15 @@
       </form>
       <div class="org-infrastructure">
         <h2>Infrastructure details</h2>
-        <table>
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th>Application</th>
-              <th>Operating System</th>
-              <th>CPU</th>
-              <th>RAM</th>
-              <th>Storage</th>
-              <th>Bandwidth</th>
+              <th scope="col">Application</th>
+              <th scope="col">Operating System</th>
+              <th scope="col">CPU</th>
+              <th scope="col">RAM</th>
+              <th scope="col">Storage</th>
+              <th scope="col">Bandwidth</th>
             </tr>
           </thead>
           <tbody id="table-rows">
@@ -142,15 +142,6 @@
         </table>
 
         <button id="addItemBtn">ADD ANOTHER</button>
-        <script>
-          $(document).ready(function () {
-            $("#addItemBtn").click(function () {
-              $("#table-rows tr:last").after(
-                ' <tr><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td> <input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td></tr>'
-              );
-            });
-          });
-        </script>
       </div>
 
       <div class="service-interested-in">
@@ -442,44 +433,74 @@
         </table>
       </div>
 
-      <div class="challenge-lesson">
+      <div class="challenge-lesson" id="challange-comment">
         <h5>
           In order of priority, kindly list some of the challenges or lessons
           you have learnt in your current data hosting arrangements?
         </h5>
-        <input type="text" name="challenge" id="challenge" />
-        <button>Add Another</button>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+        ></textarea>
+        <!-- <button #add-another-challange>Add Another</button> -->
       </div>
       <div class="additional-info">
         <h5>Kindly provide any other additional information</h5>
         <textarea
+          class="form-control"
           name="info"
-          id="info"
-          cols="30"
-          rows="10"
+          id="info2"
+          rows="3"
           placeholder="Provide additional information"
         ></textarea>
-      </div>
-      <div class="sign-off">
-        <div class="form-control">
-          <label for="sign-name">Name</label>
-          <input type="text" name="sign-name" id="sign-name" />
-        </div>
-        <div class="form-control">
-          <label for="sign-designation">Designation</label>
-          <input type="text" name="sign-designation" id="sign-designation" />
-        </div>
-        <div class="textarea">
-          <textarea
-            name="official-signature"
-            id="official-signature"
-            cols="30"
-            rows="10"
-            placeholder="Signature to be added here"
-          ></textarea>
+        <div class="sign-off">
+          <div class="form-control">
+            <label for="sign-name" class="form-label">Name</label>
+            <input
+              type="text"
+              name="sign-name"
+              class="form-control form-control-lg"
+              id="sign-name"
+            />
+          </div>
+          <div class="form-control">
+            <label for="sign-designation" class="form-label">Designation</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              name="sign-designation"
+              id="sign-designation"
+            />
+          </div>
+          <div class="textarea">
+            <textarea
+              class="form-control"
+              name="official-signature"
+              id="official-signature"
+              rows="5"
+              placeholder="Signature to be added here"
+            ></textarea>
+          </div>
         </div>
       </div>
     </div>
+    <script>
+      let rowCount = 1;
+      $(document).ready(function () {
+        $("#addItemBtn").click(function () {
+          $("#table-rows tr:last").after(
+            '< <tr><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td> <input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td></tr>'
+          );
+        });
+
+        $("#add-another-challange").click(function () {
+          $("#challange-comment input:last").after(
+            ' <input type="text" class="form-control form-control-lg" name="name"id="name" placeholder="Challange faced"/>'
+          );
+        });
+      });
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

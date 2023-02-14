@@ -14,7 +14,38 @@ body {
 }
 .org-details {
   border: solid;
-  border-color: rgb(87, 85, 85);
+  border-color: #008234;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 2%;
+}
+.org-infrastructure {
+  border: solid;
+  border-color: #008234;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 2%;
+}
+
+.service-interested-in {
+  border: solid;
+  border-color: #008234;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+}
+.challenge-lesson {
+  border: solid;
+  border-color: #008234;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+}
+.additional-info {
+  border: solid;
+  border-color: #008234;
   border-width: 2px;
   padding: 25px;
   border-radius: 15px;
