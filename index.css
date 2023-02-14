@@ -19,3 +19,18 @@ body {
   padding: 25px;
   border-radius: 15px;
 }
+.service{
+  margin-bottom: 20px;
+  display: flex;
+  height: 25px;
+  overflow: hidden;
+  flex-direction: column;
+  transition: all 1.5s ease;
+  border-bottom: 1px solid green;
+}
+
+input[type=number]{
+  border: 0;
+                        border-bottom: 1px solid grey;
+                        outline: none;
+}
