@@ -5,25 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>KNDC Requirements Form</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <title>KNDC Requirements Form</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     KNDC Requirements Form
     <div class="form">
       <form action="">
         <div class="org-details">
-          <h2>Details about ur organization</h2>
+          <h2>Details about your organization</h2>
           <div class="mb-3">
             <label for="name" class="form-label">Organization Name</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
               placeholder="Enter ur organization name"
@@ -35,7 +36,7 @@
             >
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
               placeholder="Enter ur organization name"
@@ -45,57 +46,57 @@
             <label for="name" class="form-label">City and County</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
               placeholder="Enter ur organization name"
             />
           </div>
           <div class="mb-3">
-            <label for="name" class="form-label">Postal address and Code</label>
+            <label for="name" class="form-label">Postal Address and Code</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
-              placeholder="Enter your postal address and code"
+              placeholder="Enter ur organization name"
             />
           </div>
           <div class="mb-3">
-            <label for="name" class="form-label">Number of branches</label>
+            <label for="name" class="form-label">Number of Branches</label>
             <input
               type="number"
-              class="form-control"
-              name="name"
-              id="name"
-              placeholder="Enter number of branches"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="name" class="form-label">Contact person Name</label>
-            <input
-              type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
               placeholder="Enter ur organization name"
             />
           </div>
           <div class="mb-3">
-            <label for="name" class="form-label">Contact person</label>
+            <label for="name" class="form-label">Contact Person Name</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               name="name"
               id="name"
-              placeholder="Enter contact person name"
+              placeholder="Enter ur organization name"
             />
           </div>
-          <div class="mb3">
-            <label for="name" class="form-label">Phone</label>
+          <div class="mb-3">
+            <label for="name" class="form-label">Contact</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
+              name="name"
+              id="name"
+              placeholder="Enter ur organization name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Phone</label>
+            <input
+              type="tel"
+              class="form-control form-control-lg"
               name="name"
               id="name"
               placeholder="Enter ur organization name"
@@ -103,7 +104,7 @@
           </div>
         </div>
       </form>
-      <div class="org-nfrastructure">
+      <div class="org-infrastructure">
         <h2>Infrastructure details</h2>
         <table>
           <thead>
@@ -118,41 +119,34 @@
           </thead>
           <tbody id="table-rows">
             <tr>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
-              <td class="tdIn">
+              <td>
                 <input type="text" name="" id="" />
               </td>
             </tr>
           </tbody>
         </table>
 
-        <button id="addInputBtn">ADD ANOTHER</button>
+        <button id="addItemBtn">ADD ANOTHER</button>
         <script>
-          // const container = document.getElementsByClassName("tdIn");
-
-          // function addInput() {
-          //   let input = document.createElement("input");
-          //   container.appendChild(input);
-          // }
-
           $(document).ready(function () {
-            $("#addInputBtn").click(function () {
+            $("#addItemBtn").click(function () {
               $("#table-rows tr:last").after(
-                ' <tr> <td ><input type="text" name="" id="" /></td><td > <input type="text" name="" id="" /> </td> <td><input type="text" name="" id="" /></td> <td ><input type="text" name="" id="" /></td><td ><input type="text" name="" id="" /> </td><td ><input type="text" name="" id="" /></td></tr>'
+                ' <tr><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td> <input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td><td><input type="text" name="" id="" /></td></tr>'
               );
             });
           });
@@ -189,6 +183,300 @@
         <div class="check-box">
           <label for="check-item">Colocation</label>
           <input type="checkbox" name="check-item" id="" />
+        </div>
+      </div>
+
+      <div class="virtual-machine-catalogue">
+        <h2>Virtual Machine catalogue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Hardware Resources</th>
+              <th>USD/Month</th>
+              <th>Number required</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Small</td>
+              <td>2 vCPU，4GiB Memory，100GB System Disk</td>
+              <td>18</td>
+
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td><p>csbs trial text</p></td>
+            </tr>
+            <tr>
+              <td>Medium</td>
+              <td>2 vCPU，8GiB Memory，120GB System Disk</td>
+              <td>30</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>Medium.2</td>
+              <td>4 vCPU，8GiB Memory，160GB System Disk</td>
+              <td>50</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>Large</td>
+              <td>8 vCPU，16GiB Memory，250GB System Disk</td>
+              <td>90</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>Large.2</td>
+              <td>12 vCPU, 24GiB Memory，300GB System Disk</td>
+              <td>150</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>Large.4</td>
+              <td>16 vCPU，32GiB Memory，320GB System Disk</td>
+              <td>180</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>XLarge.4</td>
+              <td>32 vCPU，64GiB Memory，500GB System Disk</td>
+              <td>380</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>2xlarge.2</td>
+              <td>48 vCPU，96GiB Memory，920GB System Disk</td>
+              <td>640</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>zxlarge.4</td>
+              <td>50 vCPU，128GiB Memory，1200GB System Disk</td>
+              <td>900</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>4xlarge.4</td>
+              <td>56 vCPU，256GiB Memory，1800GB System Disk</td>
+              <td>1720</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>8xlarge.2</td>
+              <td>64 vCPU，512GiB Memory，2000GB System Disk</td>
+              <td>2400</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bare-metal-catalogue">
+        <h2>Bare Metal catalogue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Hardware Resources</th>
+              <th>USD/Month per BMS</th>
+              <th>Number required</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PhysicalSmall</td>
+              <td>2*CPU，64G MEM, 2*300G SAS</td>
+              <td>450</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>PhysicalLarge</td>
+              <td>4*CPU，128G MEM, 4*600G SAS</td>
+              <td>1,200</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="vdi-catalogue">
+        <h2>Virtual Desktop Infrastructure catalogue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Hardware Resources</th>
+              <th>USD/Month per VDI</th>
+              <th>Number required</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>>= 12 Months</td>
+              <td>2 vCPU，4GiB Memory，60GB System Disk</td>
+              <td>10</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>6 to < 12 Months</td>
+              <td>2 vCPU，4GiB Memory，60GB System Disk</td>
+              <td>15</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+            <tr>
+              <td>< 6 Months</td>
+              <td>2 vCPU，4GiB Memory，60GB System Disk</td>
+              <td>20</td>
+              <td>
+                <input type="number" name="no-required" id="no-required" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Web Hosting</h2>
+      <div class="web-catalogue">
+        <h2>Konza basic low package bandwidth traffic</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>KOnza Hardware Resources</th>
+              <th>Yearly cost(Kshs)</th>
+              <th>Select where applicable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Konza Personal Lite</td>
+              <td>500MB Memory, 33GB System Disk, 300GB Bandwidth</td>
+              <td>2,500</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Standard</td>
+              <td>500MB Memory, 40GB System Disk, 400GB Bandwidth</td>
+              <td>5,000</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Enterprise</td>
+              <td>500GB Memory, 50GB System Disk, 500GB Bandwidth</td>
+              <td>6,000</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Executive</td>
+              <td>500GB Memory, 70GB System Disk, 700GB Bandwidth</td>
+              <td>8,000</td>
+              <td><button>select</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Konza business package high bandwidth traffic</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>KOnza Hardware Resources</th>
+              <th>Yearly cost(Kshs)</th>
+              <th>Select where applicable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Konza Personal Lite</td>
+              <td>1GB Memory, 50GB System Disk, Unlimited Bandwidth</td>
+              <td>8,500</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Standard</td>
+              <td>1.5GB Memory, 70GB System Disk, Unlimited Bandwidth</td>
+              <td>10,000</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Enterprise</td>
+              <td>2GB Memory, 100GB System Disk, Unlimited Bandwidth</td>
+              <td>16,000</td>
+              <td><button>select</button></td>
+            </tr>
+            <tr>
+              <td>Konza Personal Executive</td>
+              <td>Unlimited Memory, 150GB System Disk, Unlimited Bandwidth</td>
+              <td>26,000</td>
+              <td><button>select</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="challenge-lesson">
+        <h5>
+          In order of priority, kindly list some of the challenges or lessons
+          you have learnt in your current data hosting arrangements?
+        </h5>
+        <input type="text" name="challenge" id="challenge" />
+        <button>Add Another</button>
+      </div>
+      <div class="additional-info">
+        <h5>Kindly provide any other additional information</h5>
+        <textarea
+          name="info"
+          id="info"
+          cols="30"
+          rows="10"
+          placeholder="Provide additional information"
+        ></textarea>
+      </div>
+      <div class="sign-off">
+        <div class="form-control">
+          <label for="sign-name">Name</label>
+          <input type="text" name="sign-name" id="sign-name" />
+        </div>
+        <div class="form-control">
+          <label for="sign-designation">Designation</label>
+          <input type="text" name="sign-designation" id="sign-designation" />
+        </div>
+        <div class="textarea">
+          <textarea
+            name="official-signature"
+            id="official-signature"
+            cols="30"
+            rows="10"
+            placeholder="Signature to be added here"
+          ></textarea>
         </div>
       </div>
     </div>
