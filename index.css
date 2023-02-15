@@ -6,31 +6,76 @@
   box-sizing: border-box;
 }
 
+h2 {
+  color: #006000;
+}
+h3 {
+  color: #006000;
+}
+.challange-addinfo {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.service-interested-in {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+}
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
 }
+
+.btn-primary {
+  background-color: #006000;
+}
 .org-details {
   border: solid;
-  border-color: rgb(87, 85, 85);
+  border-color: #006000;
   border-width: 2px;
   padding: 25px;
   border-radius: 15px;
 }
-.service{
+.footer {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+#infrastructure-data {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+}
+.service {
   margin-bottom: 20px;
   display: flex;
   height: 25px;
   overflow: hidden;
   flex-direction: column;
-  transition: all 1.5s ease;
+  transition: all 1s ease;
   border-bottom: 1px solid green;
 }
 
-input[type=number]{
+input[type="number"],
+input[id="sign-name"],
+input[id="sign-designation"] {
   border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
+  border-bottom: 1px solid grey;
+  outline: none;
 }
