@@ -6,6 +6,29 @@
   box-sizing: border-box;
 }
 
+h2 {
+  color: #006000;
+}
+h3 {
+  color: #006000;
+}
+.challange-addinfo {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.service-interested-in {
+  border: solid;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -29,24 +52,48 @@ body {
   margin-bottom: 2%;
 }
 
-.service-interested-in {
+.btn-primary {
+  background-color: #006000;
+}
+.org-details {
   border: solid;
-  border-color: #008234;
+  border-color: #006000;
   border-width: 2px;
   padding: 25px;
   border-radius: 15px;
 }
-.challenge-lesson {
+.footer {
   border: solid;
-  border-color: #008234;
+  border-color: #006000;
+  border-width: 2px;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+#infrastructure-data {
+  border: solid;
+  border-color: #006000;
   border-width: 2px;
   padding: 25px;
   border-radius: 15px;
 }
-.additional-info {
-  border: solid;
-  border-color: #008234;
-  border-width: 2px;
-  padding: 25px;
-  border-radius: 15px;
+.service {
+  margin-bottom: 20px;
+  display: flex;
+  height: 45px;
+  overflow: hidden;
+  flex-direction: column;
+  transition: all 1s ease;
+  border-bottom: 1px solid green;
+}
+
+input[type="number"]:not(input[name="no-branches"]) {
+  border: 0;
+  border-bottom: 1px solid grey;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: #006600 !important;
 }
