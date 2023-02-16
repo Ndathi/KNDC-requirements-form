@@ -22,15 +22,19 @@ body {
 .service{
   margin-bottom: 20px;
   display: flex;
-  height: 25px;
+  height: 45px;
   overflow: hidden;
   flex-direction: column;
   transition: all 1.5s ease;
   border-bottom: 1px solid green;
 }
 
-input[type=number]{
+input[type=number]:not(input[name="no-branches"]){
   border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
+  border-bottom: 1px solid grey;
+  outline: none;
+}
+
+.btn-primary{
+  background-color: #006600 !important;
 }

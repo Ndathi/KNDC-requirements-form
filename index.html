@@ -80,6 +80,7 @@
                 type="number"
                 min="0"
                 class="form-control"
+                name="no-branches"
                 id="no-branches"
                 placeholder="Enter number of branches"
               />
@@ -124,78 +125,75 @@
               />
             </div>
           </div>
-        <input type="submit" value="Save">
+        <input type="submit" value="Save" class="btn btn-primary"/>
         </div>
         
       </form>
       <div class="org-infrastructure" style="margin-top: 20px;">
-
         <div id="infrastructure-data">
            <h2>Infrastructure details</h2>
-        <table class="table table-bordered table-sm" id="infrastructure-table">
-          <thead>
-            <tr>
-              <th scope="col">Application</th>
-              <th scope="col">Operating System</th>
-              <th scope="col">CPU</th>
-              <th scope="col">RAM</th>
-              <th scope="col">Storage</th>
-              <th scope="col">Bandwidth</th>
-            </tr>
-          </thead>
-          <tbody id="table-rows">
-            <tr>
-              <td>
-                <input type="text" name="app-name-1" class="form-control"id="app-name-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-              <td>
-                <input type="text" name="app-os-1" class= "form-control" id="app-os-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-              <td>
-                <input type="text" name="app-cpu-1" class= "form-control" id="app-cpu-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-              <td>
-                <input type="text" name="app-ram-1" class= "form-control" id="app-ram-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-              <td>
-                <input type="text" name="app-storage-1" class= "form-control" id="app-storage-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-              <td>
-                <input type="text" name="app-bandwidth-1" class= "form-control" id="app-bandwidth-1" style="
-                        border: 0;
-                        border-bottom: 1px solid grey;
-                        outline: none;
-                      "/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button id="addItemBtn" class="btn btn-primary"style="background-color: #006000 !important;">ADD ANOTHER</button>
-        <button id="saveInfrastructureDetails" class="btn btn-primary"style="background-color: #006000 !important;">Save</button>
+          <table class="table table-bordered table-sm" id="infrastructure-table">
+            <thead>
+              <tr>
+                <th scope="col">Application</th>
+                <th scope="col">Operating System</th>
+                <th scope="col">CPU</th>
+                <th scope="col">RAM</th>
+                <th scope="col">Storage</th>
+                <th scope="col">Bandwidth</th>
+              </tr>
+            </thead>
+            <tbody id="table-rows">
+              <tr>
+                <td>
+                  <input type="text" name="app-name-1" class="form-control"id="app-name-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+                <td>
+                  <input type="text" name="app-os-1" class= "form-control" id="app-os-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+                <td>
+                  <input type="text" name="app-cpu-1" class= "form-control" id="app-cpu-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+                <td>
+                  <input type="text" name="app-ram-1" class= "form-control" id="app-ram-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+                <td>
+                  <input type="text" name="app-storage-1" class= "form-control" id="app-storage-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+                <td>
+                  <input type="text" name="app-bandwidth-1" class= "form-control" id="app-bandwidth-1" style="
+                          border: 0;
+                          border-bottom: 1px solid grey;
+                          outline: none;
+                        "/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <button id="addItemBtn" class="btn btn-primary">ADD ANOTHER</button>
+        <button id="saveInfrastructureDetails" class="btn btn-primary">Save</button>
         
-</div>
-       
-        
+      </div>
         <script>
           $(document).ready(function () {
             let id = 2
@@ -215,17 +213,18 @@
           Data Center.
         </h3>
         <div class="vm-service service" id="vm-service">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 d-flex align-items-center">
             <div class="input-group-prepend">
-              <div class="input-group-text">
+              <div class="input-group-text ">
                 <input
                   type="checkbox"
                   aria-label="Checkbox for following text input"
                   id="vm-check"
+                  style="height: 25px;width: 25px"
                 />
               </div>
             </div>
-            <h5>Virtual Machines</h5>
+            <h5 class="mx-3">Virtual Machines</h5>
           </div>
           <div
             class="virtual-machine-catalogue"
@@ -243,12 +242,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr id="noRequired1">
                   <td>Small</td>
                   <td>2 vCPU，4GiB Memory，100GB System Disk</td>
                   <td>18</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required1" />
+                    <input type="number" name="no-required" id="no-required-1" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -260,7 +259,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-1"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -274,7 +273,7 @@
                   <td>2 vCPU，8GiB Memory，120GB System Disk</td>
                   <td>30</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-2" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -286,7 +285,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-2"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -300,7 +299,7 @@
                   <td>4 vCPU，8GiB Memory，160GB System Disk</td>
                   <td>50</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-3" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -312,7 +311,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-3"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -326,7 +325,7 @@
                   <td>8 vCPU，16GiB Memory，250GB System Disk</td>
                   <td>90</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-4" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -338,7 +337,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-4"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -352,7 +351,7 @@
                   <td>12 vCPU, 24GiB Memory，300GB System Disk</td>
                   <td>150</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-5" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -364,7 +363,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-5"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -378,7 +377,7 @@
                   <td>16 vCPU，32GiB Memory，320GB System Disk</td>
                   <td>180</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-6" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -390,7 +389,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-6"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -404,7 +403,7 @@
                   <td>32 vCPU，64GiB Memory，500GB System Disk</td>
                   <td>380</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-7" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -416,7 +415,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-7"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -430,10 +429,10 @@
                   <td>48 vCPU，96GiB Memory，920GB System Disk</td>
                   <td>640</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-8" />
                   </td>
                 </tr>
-                  <tr id="csbs-quantity">
+                <tr id="csbs-quantity">
                   <td colspan="4" align="center" id="td-col">
                     <p>
                       CSBS(Indicate the quantity required which is at least half
@@ -442,7 +441,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-8"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -456,7 +455,7 @@
                   <td>50 vCPU，128GiB Memory，1200GB System Disk</td>
                   <td>900</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-9" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -468,7 +467,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-9"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -482,7 +481,7 @@
                   <td>56 vCPU，256GiB Memory，1800GB System Disk</td>
                   <td>1720</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-10" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -494,7 +493,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-10"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -508,7 +507,7 @@
                   <td>64 vCPU，512GiB Memory，2000GB System Disk</td>
                   <td>2400</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-11" />
                   </td>
                 </tr>
                 <tr id="csbs-quantity">
@@ -520,7 +519,7 @@
                     <input
                       type="number"
                       name="csbs"
-                      id="csbs"
+                      id="csbs-11"
                       style="
                         border: 0;
                         border-bottom: 1px solid grey;
@@ -532,19 +531,21 @@
               </tbody>
             </table>
           </div>
+          <button id="vm-save" class="btn btn-primary">save</button>
         </div>
         <div id="bms-service" class="bms-service service">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 d-flex align-items-center">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <input
                   type="checkbox"
                   aria-label="Checkbox for following text input"
                   id="bms-check"
+                  style="height: 25px;width: 25px"
                 />
               </div>
             </div>
-            <h5>Bare Metal Servers</h5>
+            <h5 class="mx-3">Bare Metal Servers</h5>
           </div>
           <div
             class="bare-metal-catalogue"
@@ -552,7 +553,7 @@
             style="display: flex; flex-direction: column"
           >
             <h5>Choose on your package(s) of choice</h5>
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="bms-table">
               <thead>
                 <tr>
                   <th scope="col">Type</th>
@@ -567,7 +568,7 @@
                   <td>2*CPU，64G MEM, 2*300G SAS</td>
                   <td>450</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required-small" id="no-required-small" />
                   </td>
                 </tr>
                 <tr>
@@ -575,25 +576,27 @@
                   <td>4*CPU，128G MEM, 4*600G SAS</td>
                   <td>1,200</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required-large" id="no-required-large" />
                   </td>
                 </tr>
               </tbody>
             </table>
+            <button id="bms-save" class="btn btn-primary">save</button>
           </div>
         </div>
         <div id="web-service" class="web-service service">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 d-flex align-items-center">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <input
                   type="checkbox"
                   aria-label="Checkbox for following text input"
                   id="web-check"
+                  style="height: 25px;width: 25px"
                 />
               </div>
             </div>
-            <h5>Web Hosting</h5>
+            <h5 class="mx-3">Web Hosting</h5>
           </div>
           <div
             class="web-hosting-container"
@@ -604,7 +607,7 @@
             <div class="web-catalogue" id="web-catalogue">
               <h5>Konza basic low package bandwidth traffic</h5>
               <h6>Choose on your package(s) of choice</h6>
-              <table class="table table-bordered">
+              <table class="table table-bordered" id="web-table-1">
                 <thead>
                   <tr>
                     <th scope="col">Type</th>
@@ -614,36 +617,35 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr id="select-row"  style="transition: all 0.5s ease;">
                     <td>Konza Personal Lite</td>
                     <td>500MB Memory, 33GB System Disk, 300GB Bandwidth</td>
                     <td>2,500</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary" name="low-1" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row">
                     <td>Konza Personal Standard</td>
                     <td>500MB Memory, 40GB System Disk, 400GB Bandwidth</td>
                     <td>5,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary" name="low-2" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row">
                     <td>Konza Personal Enterprise</td>
                     <td>500GB Memory, 50GB System Disk, 500GB Bandwidth</td>
                     <td>6,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button  id="select-btn" class="btn btn-primary" name="low-3" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row">
                     <td>Konza Personal Executive</td>
                     <td>500GB Memory, 70GB System Disk, 700GB Bandwidth</td>
                     <td>8,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary" name="low-4" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
                 </tbody>
               </table>
-
               <h5>Konza business package high bandwidth traffic</h5>
               <h6>Choose on your package(s) of choice</h6>
-              <table class="table table-bordered">
+              <table class="table table-bordered" id="web-table-2">
                 <thead>
                   <tr>
                     <th scope="col">Type</th>
@@ -653,49 +655,51 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr id="select-row" style="transition: all 0.5s ease">
                     <td>Konza Personal Lite</td>
                     <td>1GB Memory, 50GB System Disk, Unlimited Bandwidth</td>
                     <td>8,500</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary" name="high-1" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row" style="transition: all 0.5s ease;">
                     <td>Konza Personal Standard</td>
                     <td>1.5GB Memory, 70GB System Disk, Unlimited Bandwidth</td>
                     <td>10,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary"  name="high-2" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row" style="transition: all 0.5s ease;">
                     <td>Konza Personal Enterprise</td>
                     <td>2GB Memory, 100GB System Disk, Unlimited Bandwidth</td>
                     <td>16,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary"  name="high-3" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
-                  <tr>
+                  <tr id="select-row" style="transition: all 0.5s ease;">
                     <td>Konza Personal Executive</td>
                     <td>
                       Unlimited Memory, 150GB System Disk, Unlimited Bandwidth
                     </td>
                     <td>26,000</td>
-                    <td class="d-flex align-items-center justify-content-center"><button class="btn btn-primary">Select</button></td>
+                    <td class="d-flex align-items-center justify-content-center"><button id="select-btn" class="btn btn-primary"  name="high-4" style="transition: all 0.5s ease;">Select</button></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <button id="web-save" class="btn btn-primary">Save</button>
           </div>
         </div>
         <div id="vdi-service" class="vdi-service service">
-          <div class="input-group mb-3">
+          <div class="input-group mb-3 d-flex align-items-center">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <input
                   type="checkbox"
                   aria-label="Checkbox for following text input"
                   id="vdi-check"
+                  style="height: 25px;width: 25px"
                 />
               </div>
             </div>
-            <h5 class="ml-4">Virtual Desktop Infrastructure</h5>
+            <h5 class="mx-3">Virtual Desktop Infrastructure</h5>
           </div>
           <div
             class="vdi-catalogue"
@@ -703,7 +707,7 @@
             style="display: flex; flex-direction: column"
           >
             <h5>Choose on your package(s) of choice</h5>
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="vdi-table">
               <thead>
                 <tr>
                   <th scope="col">Type</th>
@@ -718,7 +722,7 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>10</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-1" />
                   </td>
                 </tr>
                 <tr>
@@ -726,7 +730,7 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>15</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-2" />
                   </td>
                 </tr>
                 <tr>
@@ -734,11 +738,12 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>20</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required" />
+                    <input type="number" name="no-required" id="no-required-3" />
                   </td>
                 </tr>
               </tbody>
             </table>
+            <button id="vdi-save" class="btn btn-primary">Save</button>
           </div>
         </div>
       </div>
@@ -748,17 +753,15 @@
           In order of priority, kindly list some of the challenges or lessons
           you have learnt in your current data hosting arrangements?
         </h5>
-        <!-- <input type="text" name="challenge" id="challenge" /> -->
-        <textarea name="" id="" class="form-control
+        <textarea name="" id="challenge-reason-textarea" class="form-control
         cols="30" rows="4"></textarea>
-        <!-- <button>Add Another</button> -->
       </div>
       <div class="additional-info">
         <h5>Kindly provide any other additional information</h5>
         <textarea
           name="info"
-          class="form-control
-          id="info"
+          class="form-control"
+          id="info-textarea"
           cols="30"
           rows="4"
           placeholder="Provide additional information"
@@ -798,10 +801,6 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      let csbsQuantity = document.getElementById("csbs-quantity");
-      let inputVM = document.getElementById("no-required1");
-      let tdCOL = document.getElementById("td-col");
-
       // check boxes declaration
       const vmCheckBox = document.getElementById("vm-check");
       const bmsCheckBox = document.getElementById("bms-check");
@@ -818,38 +817,34 @@
       // eventlisteners for checkboxes
       vmCheckBox.addEventListener("change", (e) => {
         if (e.target.checked) {
-          vmService.style.height = "1550px";
+          vmService.style.height = "230vh";
           return;
         }
-        vmService.style.height = "25px";
+        vmService.style.height = "45px";
       });
 
       bmsCheckBox.addEventListener("change", (e) => {
         if (e.target.checked) {
-          bmsService.style.height = "250px";
+          bmsService.style.height = "40vh";
           return;
         }
-        bmsService.style.height = "25px";
+        bmsService.style.height = "45px";
       });
 
       vdiCheckBox.addEventListener("change", (e) => {
         if (e.target.checked) {
-          vdiService.style.height = "300px";
+          vdiService.style.height = "46vh";
           return;
         }
-        vdiService.style.height = "25px";
+        vdiService.style.height = "45px";
       });
 
       webCheckBox.addEventListener("change", (e) => {
         if (e.target.checked) {
-          webService.style.height = "900px";
+          webService.style.height = "140vh";
           return;
         }
-        webService.style.height = "25px";
-      });
-
-      inputVM.addEventListener("change", (e) => {
-        console.log("change event");
+        webService.style.height = "45px";
       });
 
       // getting form data
@@ -868,18 +863,23 @@
       }
       form.addEventListener("submit", e => {
         e.preventDefault();
-      const name = detailsForm.elements["org-name"].value;
-      const streetBuildingAddress = detailsForm.elements["street-building"].value;
-      const cityAndCountry = detailsForm.elements["city-country"].value;
-      const postalAddress = detailsForm.elements["postal"].value;
-      const branches = detailsForm.elements["no-branches"].value;
-      const contactName = detailsForm.elements["contact-person"].value;
-      const contactEmail = detailsForm.elements["contact-email"].value;
-      const phoneNumber = detailsForm.elements["phone-no"].value;
+        const name = detailsForm.elements["org-name"].value;
+        const streetBuildingAddress = detailsForm.elements["street-building"].value;
+        const cityAndCountry = detailsForm.elements["city-country"].value;
+        const postalAddress = detailsForm.elements["postal"].value;
+        const branches = detailsForm.elements["no-branches"].value;
+        const contactName = detailsForm.elements["contact-person"].value;
+        const contactEmail = detailsForm.elements["contact-email"].value;
+        const phoneNumber = detailsForm.elements["phone-no"].value;
 
-      organizationDetails = {name, streetBuildingAddress, cityAndCountry, postalAddress, branches, contactName, contactEmail, phoneNumber}
+        if(!name || !streetBuildingAddress || !cityAndCountry || !postalAddress || !contactName || !contactEmail || !phoneNumber){
+          alert("Organization name, street, city & country, postal address and contact details are required")
+          return
+        }
 
-        console.log(organizationDetails)
+        organizationDetails = {name, streetBuildingAddress, cityAndCountry, postalAddress, branches, contactName, contactEmail, phoneNumber}
+
+        // console.log(organizationDetails)
       })
 
       //getting infrastructure details 
@@ -904,31 +904,257 @@
       let applicationBandwidth = document.getElementById("app-bandwidth-1").value;
       
       let infrastructureDetailsArray = []
-      let tableRowsCount = infrastructureTable.rows.length
+      
 
       // infrastructure btn onclick
       infrastructureSaveBtn.addEventListener("click", (e) => {
+        let tableRowsCount = infrastructureTable.rows.length
         //loop thru the rows and append an array with the row data
          infrastructureDetailsArray = fillInfrastructureDataArray(tableRowsCount)
 
-        console.log(infrastructureDetailsArray)
+        // console.log(infrastructureDetailsArray)
       })
 
       const fillInfrastructureDataArray = (tableRowsLength) => {
         let infrastructureArray = [];
-        for (let i = 1; i < tableRowsLength + 1; i++) {
-          let applicationName = document.getElementById(`app-name-${i}`).value;
-          let applicationOS = document.getElementById(`app-os-${i}`).value;
-          let applicationCPU = document.getElementById(`app-cpu-${i}`).value;
-          let applicationRAM = document.getElementById(`app-ram-${i}`).value;
-          let applicationStorage = document.getElementById(`app-storage-${i}`).value;
-          let applicationBandwidth = document.getElementById(`app-bandwidth-${i}`).value;
+      
+          for (let i = 1; i < tableRowsLength; i++) {
+            let applicationName = document.getElementById(`app-name-${i}`).value;
+            let applicationOS = document.getElementById(`app-os-${i}`).value;
+            let applicationCPU = document.getElementById(`app-cpu-${i}`).value;
+            let applicationRAM = document.getElementById(`app-ram-${i}`).value;
+            let applicationStorage = document.getElementById(`app-storage-${i}`).value;
+            let applicationBandwidth = document.getElementById(`app-bandwidth-${i}`).value;
 
-          infrastructureArray.push({applicationName, applicationOS, applicationCPU, applicationRAM, applicationStorage, applicationBandwidth})
-        }
+            if(!applicationName || !applicationOS || !applicationCPU || !applicationRAM || !applicationStorage){
+              alert("Application name. operating system, cpu, ram, storage are required")
+              return
+            }
+            infrastructureArray.push({applicationName, applicationOS, applicationCPU, applicationRAM, applicationStorage, applicationBandwidth})
+          }
         return infrastructureArray;
       }
 
+      //bms service capture
+      const bmsTable = document.getElementById("bms-table");
+      const bmsSaveBtn = document.getElementById("bms-save")
+
+      let bmsItem = {
+        type: "",
+        hardwareResources: "",
+        cost: 0,
+        numberRequired: ""
+      }
+
+      let bmsArray = []
+
+      //onclick event listener
+      bmsSaveBtn.addEventListener("click", e => {
+        
+        let smallType = document.getElementById(`no-required-small`).value;
+        let largeType = document.getElementById(`no-required-large`).value;
+
+        if(smallType){
+          bmsArray.push({type: "PhysicalSmall", hardwareResources: "2*CPU，64G MEM, 2*300G SAS", cost: 450, numberRequired: smallType})
+        }
+        if(largeType){
+          bmsArray.push({type: "PhysicalLarge", hardwareResources: "4*CPU，128G MEM, 4*600G SAS", cost: 1_200, numberRequired: largeType})
+        }
+
+        // console.log(bmsArray)
+      })
+
+      // vdi service details
+      const vdiTable = document.getElementById("vdi-table");
+      const vdiSaveBtn = document.getElementById("vdi-save")
+
+      let vdiItem = {
+        type: "",
+        hardwareResources: "",
+        cost: 0,
+        numberRequired: ""
+      }
+
+      let vdiArray = []
+
+      //onclick event listener
+      vdiSaveBtn.addEventListener("click", e => {
+        
+        let greaterThanOrEqualTo12Type = document.getElementById(`no-required-1`).value;
+        let sixToLessThan12 = document.getElementById(`no-required-2`).value;
+        let lessThan6 = document.getElementById(`no-required-3`).value;
+
+        if(greaterThanOrEqualTo12Type){
+          vdiArray.push({type: ">=12", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 10, numberRequired: greaterThanOrEqualTo12Type})
+        }
+        if(sixToLessThan12){
+          vdiArray.push({type: "6 to <12", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 15, numberRequired: sixToLessThan12})
+        }
+        if(lessThan6){
+          vdiArray.push({type: "<6", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 20, numberRequired: lessThan6})
+        }
+        
+        // console.log(vdiArray)
+      })
+
+      // web service details
+      const webTable1 = document.getElementById("web-table-1");
+      const webTable2 = document.getElementById("web-table-2");
+      const selectBtns = document.querySelectorAll("#select-btn")
+      const selectRows = document.querySelectorAll("#select-row")
+
+      const webSaveBtn = document.getElementById("web-save")
+
+      let webItem = {
+        type: "",
+        traffic: "",
+        hardwareResources: "",
+        cost: 0
+      }
+
+      let selectedButtons = [];
+      
+      for(let i = 0; i < selectBtns.length; i++){
+        let selected = false;
+        selectBtns[i].addEventListener("click", e => {
+        const name = e.target.attributes["name"].value;
+        console.log(name)
+
+        selected = !selected;
+        if(selected){
+          selectBtns[i].innerText = "Unselect";
+          selectBtns[i].style.outline = "none !important";
+          // selectBtns[i].style.backgroundColor = "#0d6efd !important";
+          selectRows[i].style.backgroundColor = "#006600";
+          selectRows[i].style.color = "white";
+
+          //add the button to the selected buttons
+          selectedButtons.push({name})
+        }else{
+          selectBtns[i].innerText = "Select";
+          selectBtns[i].style.outline = "none !important";
+          selectBtns[i].style.backgroundColor = "#006600";
+          selectRows[i].style.backgroundColor = "transparent";
+          selectRows[i].style.color = "black";
+
+          //remove the button from the array
+          selectedButtons = selectedButtons.filter(n => n.name !== name)
+        }
+      })
+      }
+
+      let webArray = []
+
+      //onclick event listener
+      webSaveBtn.addEventListener("click", e => {
+
+        for(let i = 0; i < selectedButtons.length; i++){
+          console.log(selectedButtons[i], "inside for")
+          //low traffic
+          if(selectedButtons[i].name == "low-1"){
+            webArray.push({type: "KonzaPersonalLite", traffic: "Low", hardwareResources: "500MB Memory, 33GB System Disk, 300GB Bandwidth", cost: 2_500})
+          }
+          else if(selectedButtons[i].name == "low-2"){
+            webArray.push({type: "KonzaPersonalStandard", traffic: "Low",hardwareResources: "500MB Memory, 40GB System Disk, 400GB Bandwidth", cost: 5_000})
+          }
+          else if(selectedButtons[i].name == "low-3"){
+            webArray.push({type: "KonzaPersonalEnterprise", traffic: "Low",hardwareResources: "500GB Memory, 50GB System Disk, 500GB Bandwidth", cost: 6_000})
+          }
+          else if(selectedButtons[i].name == "low-4"){
+            webArray.push({type: "KonzaPersonalExecutive", traffic: "Low",hardwareResources: "500GB Memory, 70GB System Disk, 700GB Bandwidth", cost: 8_000})
+          }
+
+          // high traffic
+          else if(selectedButtons[i].name == "high-1"){
+            webArray.push({type: "KonzaPersonalLite", traffic: "High", hardwareResources: "1GB Memory, 50GB System Disk, Unlimited Bandwidth", cost: 8_500})
+          }
+          else if(selectedButtons[i].name == "high-2"){
+            webArray.push({type: "KonzaPersonalStandard", traffic: "High",hardwareResources: "1.5GB Memory, 70GB System Disk, Unlimited Bandwidth", cost: 10_000})
+          }
+          else if(selectedButtons[i].name == "high-3"){
+            webArray.push({type: "KonzaPersonalEnterprise", traffic: "High",hardwareResources: "2GB Memory, 100GB System Disk, Unlimited Bandwidth", cost: 16_000})
+          }
+          else if(selectedButtons[i].name == "high-4"){
+            webArray.push({type: "KonzaPersonalExecutive", traffic: "High",hardwareResources: "Unlimited Memory, 150GB System Disk, Unlimited Bandwidth", cost: 26_000})
+          }
+          else{
+            console.log(selectedButtons[i])
+            console.log("nothing added")
+          }
+        }
+        // console.log(webArray)
+      })
+
+      // vm service details
+      const vmTable1 = document.getElementById("vm-table-1");
+
+      const vmSaveBtn = document.getElementById("vm-save")
+
+      //defining a vm type
+      let vmItem = {
+        type: "",
+        hardwareResources: "",
+        cost: 0,
+        numberRequired: "",
+        csbsCapacity: ""
+      }
+
+      let vmArray = [];
+
+      //check whether number and csbs inputs match
+      let vmTypes = ["Small", "Medium", "Medium.2", "Large", "Large.2", "Large.4", "XLarge.4", "2xlarge.2", "2xlarge.4","4xlarge.4","8xlarge.2"]
+
+      let vmHardwareResources = ["2 vCPU，4GiB Memory，100GB System Disk", "2 vCPU，8GiB Memory，120GB System Disk", "4 vCPU，8GiB Memory，160GB System Disk", "8 vCPU，16GiB Memory，250GB System Disk", "12 vCPU, 24GiB Memory，300GB System Disk", "16 vCPU，32GiB Memory，320GB System Disk", "32 vCPU，64GiB Memory，500GB System Disk", "48 vCPU，96GiB Memory，920GB System Disk", "50 vCPU，128GiB Memory，1200GB System Disk","56 vCPU，256GiB Memory，1800GB System Disk","64 vCPU，512GiB Memory，2000GB System Disk"]
+
+      let vmPrices = [18, 30, 50, 90, 150, 180, 380, 640, 900, 1_720, 2_400];
+
+      //event listener
+      vmSaveBtn.addEventListener("click", e => {
+        //number inputts
+        let no = [];
+        for (let i = 0; i < 11; i++) {
+          no[i] = document.getElementById(`no-required-${i+1}`).value;
+        }
+
+        // csbs inputts
+        let cs = [];
+        for (let i = 0; i < 11; i++) {
+          cs[i] = document.getElementById(`csbs-${i+1}`).value;
+        }
+
+        for(let i = 0; i < 11; i++){
+          if(!no[i] && !cs[i]){
+            continue
+          }
+          else{
+            //create an object and populate it then push to an array
+            vmArray.push({type: vmTypes[i], vmHardwareResources: vmHardwareResources[i], cost: vmPrices[i], numberRequired: no[i], csbsCapacity: cs[i]})
+          }
+        }
+        // console.log(vmArray)
+      })
+
+
+      //challenge-reason and info textareas
+      const challengeReason = document.getElementById("challenge-reason-textarea")
+      const infoTextArea = document.getElementById("info-textarea")
+      const signName = document.getElementById("sign-name")
+      const signDesignation = document.getElementById("sign-designation")
+
+      //submit form button
+      const submitFormBtn = document.getElementById("submitBtn");
+      submitFormBtn.addEventListener("click", e => {
+        console.log("OrgDetails", organizationDetails)
+        console.log("InfrastructureArray", infrastructureDetailsArray)
+        console.log("vmArray", vmArray)
+        console.log("bmsArray", bmsArray)
+        console.log("vdiArray", vdiArray)
+        console.log("webArray", webArray)
+        console.log("challenge", challengeReason.value)
+        console.log("additional-info", infoTextArea.value)
+        console.log("sign-name", signName.value)
+        console.log("sign-designation", signDesignation.value)
+      })
     </script>
   </body>
 </html>
