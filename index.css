@@ -12,6 +12,19 @@ h2 {
 h3 {
   color: #006000;
 }
+h4 {
+  margin-left: 44%;
+  color: #006000;
+}
+#signature-pad {
+  border: solid;
+  border-width: 1px;
+  color: #006000;
+}
+
+#clearSignPad {
+  margin-left: 50%;
+}
 .challange-addinfo {
   border: solid;
   border-color: #006000;
@@ -71,13 +84,13 @@ body {
   margin-top: 20px;
 }
 
-#infrastructure-data {
+/* #infrastructure-data {
   border: solid;
   border-color: #006000;
   border-width: 2px;
   padding: 25px;
   border-radius: 15px;
-}
+} */
 .service {
   margin-bottom: 20px;
   display: flex;
