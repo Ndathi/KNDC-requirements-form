@@ -126,7 +126,7 @@
               />
             </div>
           </div>
-        <input type="submit" value="Save" class="btn btn-primary"/>
+        <input type="submit" id="" value="Save" class="btn btn-primary"/>
         </div>
         
       </form>
@@ -341,7 +341,6 @@
                     <input type="number" name="no-required" id="no-required-11" />
                   </td>
                 </tr>
-               
               </tbody>
             </table>
           </div>
@@ -570,7 +569,7 @@
         <textarea name="" id="challenge-reason-textarea" class="form-control
         cols="30" rows="4"></textarea>
       </div>
-      <div class="additional-info">
+      <div class="additional-info my-4">
         <h5>Kindly provide any other additional information</h5>
         <textarea
           name="info"
@@ -580,43 +579,66 @@
           rows="4"
           placeholder="Provide additional information"
         ></textarea>
-      </div></div>
+      </div>
+    </div>
 
       <div class="footer"><div class="sign-off">
         <div class="form-group row my-2">
           <label for="sign-name" class="col-sm-2 col-form-label">Name</label>
           <div class="col-sm-10"><input type="text" class="form-control" name="sign-name" id="sign-name" /></div>
-          
         </div>
         <div class="form-group row my-2">
           <label for="sign-designation" class="col-sm-2 col-form-label">Designation</label>
           <div class="col-sm-10"><input type="text" class="form-control" name="sign-designation" id="sign-designation" /></div>
-        </div><h4>SIGN HERE</h4>
-        <div class="textarea d-flex justify-content-center align-items-center" >
-        
-          
-
-          <canvas id="signature-pad" width="400" height="200"></canvas>
-
-          
-
         </div>
-        <button id="submitBtn" class="btn btn-primary my-4"style="background-color: #006000 !important;">SUBMIT FORM</button><button id="clearSignPad" class="btn btn-primary my-4"style="background-color: #006000 !important;" >CLEAR SIGN PAD</button>
+        <h4>SIGN HERE</h4>
+        <div class="textarea d-flex justify-content-center align-items-start" >
+          <canvas id="signature-pad" width="400" height="200"></canvas>
+        <button id="clearSignPad" class="btn btn-primary mx-4" >CLEAR SIGNATURE</button>
+        </div>
+        <button id="submitBtn" class="btn btn-primary my-4">SUBMIT FORM</button>
       </div>
     </div>
-      
-      
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(document).ready(function () {
+        let states= ["false","false","false","false","false","false","false","false","false","false","false"];
 
+        $("#rats").change(function(event){
+          var currid = event.target.id;
+          console.log(currid)
+          const result = currid.split("-")[2]
+          var b = parseInt(result)
 
+          var tarId = "#"+ currid;
+          if(states[b-1] ==="false"){
+            $(tarId).after(
+                        `<tr id="csbs-quantity">
+                          <td colspan="4" align="center" id="td-col">
+                            <p>CSBS(Indicate the quantity required which is least half of the VM storage capacity </p>
+                            <input type="number" name="csbs" id="csbs-${b}" style=" border: 0; border-bottom: 1px solid grey; outline: none;" />
+                          </td>
+                          </tr>`);
 
+            states[b-1]="true";
+                      }
+          })
 
-    <!-- <script>
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init('hLkFa0MSrkN46biom');
+        })();
+    </script>
+    <script>
       var canvas = document.getElementById("signature-pad");
 
       function resizeCanvas() {
@@ -625,84 +647,18 @@
           canvas.height = canvas.offsetHeight * ratio;
           canvas.getContext("2d").scale(ratio, ratio);
       }
+
       window.onresize = resizeCanvas;
       resizeCanvas();
 
       var signaturePad = new SignaturePad(canvas, {
-       backgroundColor: 'rgb(250,250,250)'
+        backgroundColor: 'rgb(250,250,250)'
       });
 
       document.getElementById("clearSignPad").addEventListener('click', function(){
-       signaturePad.clear();
+        signaturePad.clear();
       })
-  </script> -->
 
-
-    <script>
-      $(document).ready(function () {
-        
-
-
-let states= ["false","false","false","false","false","false","false","false","false","false","false"];
-
-$("#rats").change(function(event){
-
-var currid = event.target.id;
-
-let result= 0;
-if(currid.length===13 ){ 
-result = currid.substr(currid.length-1, 1);
-
-}
-else if(currid.length===14){
-result = currid.substr(currid.length-2, 2)
-}
-
-
-
-var b = parseInt(result)
-
-   var tarId = "#"+ currid;
-if(states[b-1] ==="false"){
- $(tarId).after(
-            `<tr id="csbs-quantity">
-              <td colspan="4" align="center" id="td-col">
-                <p>CSBS(Indicate the quantity required which is least half of the VM storage capacity </p>
-                <input type="number" name="csbs" id="csbs-${b}" style=" border: 0; border-bottom: 1px solid grey; outline: none;" />
-              </td>
-              </tr>`);
-
-states[b-1]="true";
-
-          }
-
-          })
-
-      });
-    </script>
-
-
-
-    <script>
-
-var canvas = document.getElementById("signature-pad");
-
-function resizeCanvas() {
-    var ratio = Math.max(window.devicePixelRatio || 1, 1);
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-    canvas.getContext("2d").scale(ratio, ratio);
-}
-window.onresize = resizeCanvas;
-resizeCanvas();
-
-var signaturePad = new SignaturePad(canvas, {
- backgroundColor: 'rgb(250,250,250)'
-});
-
-document.getElementById("clearSignPad").addEventListener('click', function(){
- signaturePad.clear();
-})
       // check boxes declaration
       const vmCheckBox = document.getElementById("vm-check");
       const bmsCheckBox = document.getElementById("bms-check");
@@ -814,6 +770,9 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
         //loop thru the rows and append an array with the row data
          infrastructureDetailsArray = fillInfrastructureDataArray(tableRowsCount)
 
+         //update the button innerText
+         if(infrastructureDetailsArray.length !=0 ) infrastructureSaveBtn.innerText = "Saved"
+
         // console.log(infrastructureDetailsArray)
       })
 
@@ -828,7 +787,11 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
             let applicationStorage = document.getElementById(`app-storage-${i}`).value;
             let applicationBandwidth = document.getElementById(`app-bandwidth-${i}`).value;
 
-            if(!applicationName || !applicationOS || !applicationCPU || !applicationRAM || !applicationStorage){
+            if(!applicationName && (applicationOS || applicationCPU || applicationRAM || applicationStorage)){
+              alert("Application name. operating system, cpu, ram, storage are required")
+              return
+            }
+            if(applicationName && (!applicationOS || !applicationCPU || !applicationRAM || !applicationStorage)){
               alert("Application name. operating system, cpu, ram, storage are required")
               return
             }
@@ -863,6 +826,9 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
           bmsArray.push({type: "PhysicalLarge", hardwareResources: "4*CPU，128G MEM, 4*600G SAS", cost: 1_200, numberRequired: largeType})
         }
 
+        //update the button innerText
+        bmsSaveBtn.innerText = "Saved"
+
         // console.log(bmsArray)
       })
 
@@ -896,6 +862,9 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
           vdiArray.push({type: "<6", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 20, numberRequired: lessThan6})
         }
         
+        //update the button innerText
+        vdiSaveBtn.innerText = "Saved"
+
         // console.log(vdiArray)
       })
 
@@ -926,7 +895,6 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
         if(selected){
           selectBtns[i].innerText = "Unselect";
           selectBtns[i].style.outline = "none !important";
-          // selectBtns[i].style.backgroundColor = "#0d6efd !important";
           selectRows[i].style.backgroundColor = "#006600";
           selectRows[i].style.color = "white";
 
@@ -951,8 +919,6 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
       webSaveBtn.addEventListener("click", e => {
 
         for(let i = 0; i < selectedButtons.length; i++){
-          console.log(selectedButtons[i], "inside for")
-          //low traffic
           if(selectedButtons[i].name == "low-1"){
             webArray.push({type: "KonzaPersonalLite", traffic: "Low", hardwareResources: "500MB Memory, 33GB System Disk, 300GB Bandwidth", cost: 2_500})
           }
@@ -981,9 +947,12 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
           }
           else{
             console.log(selectedButtons[i])
-            console.log("nothing added")
           }
         }
+        
+        //update the button innerText
+        webSaveBtn.innerText = "Saved"
+
         // console.log(webArray)
       })
 
@@ -1021,7 +990,7 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
         // csbs inputts
         let cs = [];
         for (let i = 0; i < 11; i++) {
-          cs[i] = document.getElementById(`csbs-${i+1}`).value;
+          if(no[i]) cs[i] = document.getElementById(`csbs-${i+1}`).value;          
         }
 
         for(let i = 0; i < 11; i++){
@@ -1033,46 +1002,135 @@ document.getElementById("clearSignPad").addEventListener('click', function(){
             vmArray.push({type: vmTypes[i], vmHardwareResources: vmHardwareResources[i], cost: vmPrices[i], numberRequired: no[i], csbsCapacity: cs[i]})
           }
         }
+
+        //update the button innerText
+        vmSaveBtn.innerText = "Saved"
+
         // console.log(vmArray)
       })
-
 
       //challenge-reason and info textareas
       const challengeReason = document.getElementById("challenge-reason-textarea")
       const infoTextArea = document.getElementById("info-textarea")
       const signName = document.getElementById("sign-name")
       const signDesignation = document.getElementById("sign-designation")
-      const signature = document.getElementById("")
 
-
-      //Get signature as a JPEG
-
-      // const canvas = document.querySelector("canvas");
-
-// const signaturePad = new SignaturePad(canvas);
-
-
-// signaturePad.toDataURL("image/jpeg");
       //submit form button
       const submitFormBtn = document.getElementById("submitBtn");
       submitFormBtn.addEventListener("click", e => {
+        e.preventDefault()
 
-        const canvas = document.querySelector("canvas");
-        const signaturePad = new SignaturePad(canvas);
+        // let signatureImage = new SignaturePad(canvas);
         signaturePad.toDataURL("image/jpeg");
         
-        console.log("OrgDetails", organizationDetails)
-        console.log("InfrastructureArray", infrastructureDetailsArray)
-        console.log("vmArray", vmArray)
-        console.log("bmsArray", bmsArray)
-        console.log("vdiArray", vdiArray)
-        console.log("webArray", webArray)
-        console.log("challenge", challengeReason.value)
-        console.log("additional-info", infoTextArea.value)
-        console.log("sign-name", signName.value)
-        console.log("sign-designation", signDesignation.value)
-        console.log("signatue-client", signaturePad)
+        if(!signName.value && !signDesignation.value){
+          alert("Kindly provide your name and designation")
+          return
+        }
+        if(signaturePad.isEmpty()){
+          alert("Kindly make sure you sign")
+          return
+        }
+
+        const mailObject = {
+          ...buildObject(organizationDetails, infrastructureDetailsArray, vmArray, vdiArray, webArray, bmsArray),
+          signedByName: signName.value,
+          signedDestination: signDesignation.value,
+          submissionDate: new Date().toLocaleDateString(),
+        }
+
+        emailjs.send('service_txzsynf', 'template_uqwwcjp', mailObject)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+                   
+        // console.log("OrgDetails", organizationDetails["contactName"])
+        // console.log("InfrastructureArray", infrastructureDetailsArray)
+        // console.log("vmArray", vmArray)
+        // console.log("bmsArray", bmsArray)
+        // console.log("vdiArray", vdiArray)
+        // console.log("webArray", webArray)
+        // console.log("challenge", challengeReason.value)
+        // console.log("additional-info", infoTextArea.value)
+        // console.log("sign-name", signName.value)
+        // console.log("sign-designation", signDesignation.value)
+        // console.log("signatue-image", signaturePad)
       })
+
+      const buildObject = (details, infrastructureArray,vmArray, vdiArray, webArray, bmsArray) => {
+          let detailsObject = {
+            name: details["name"],
+            streetBuildingAddress: details["streetBuildingAddress"],
+            cityAndCountry: details["cityAndCountry"],
+            postalAddress: details["postalAddress"],
+            branches: details["branches"],
+            contactName: details["contactName"],
+            contactEmail: details["contactEmail"],
+            phoneNumber: details["phoneNumber"]
+          }
+
+          if(infrastructureArray.length > 0){
+              let infrastructureDetails = {
+                applicationName: infrastructureArray[0]["applicationName"],
+                applicationOS: infrastructureArray[0]["applicationOS"],
+                applicationCPU: infrastructureArray[0]["applicationCPU"],
+                applicationRAM: infrastructureArray[0]["applicationRAM"],
+                applicationStorage: infrastructureArray[0]["applicationStorage"],
+                applicationBandwidth: infrastructureArray[0]["applicationBandwidth"],
+              }
+
+              detailsObject = {...detailsObject, ...infrastructureDetails}
+          }
+          
+          if(vdiArray.length > 0){
+            let vdiItem = {
+              vdiType: vdiArray[0]["type"],
+              vdiHardwareResources: vdiArray[0]["hardwareResources"],
+              vdiCost: vdiArray[0]["cost"],
+              vdiNumberRequired: vdiArray[0]["numberRequired"]
+            }
+
+            detailsObject = {...detailsObject, ...vdiItem}
+          }
+
+          if(vmArray.length > 0){
+              let vmItem = {
+                vmType: vmArray[0]["type"],
+                vmHardwareResources: vmArray[0]["hardwareResources"],
+                vmCost: vmArray[0]["cost"],
+                vmNumberRequired: vmArray[0]["numberRequired"],
+                vmCsbsCapacity: vmArray[0]["csbsCapacity"]
+              }
+
+              detailsObject = {...detailsObject, ...vmItem}
+          }
+
+          if(webArray.length > 0){
+            let webItem = {
+              webType: webArray[0]["type"],
+              webTraffic: webArray[0]["traffic"],
+              webHardwareResources: webArray[0]["hardwareResources"],
+              webCost: webArray[0]["cost"]
+            }
+
+            detailsObject = {...detailsObject, ...webItem}
+          }
+
+          if(bmsArray.length > 0){
+            let bmsItem = {
+              bmsType: bmsArray[0]["type"],
+              bmsHardwareResources: bmsArray[0]["hardwareResources"],
+              bmsCost: bmsArray[0]["cost"],
+              bmsNumberRequired: bmsArray[0]["numberRequired"],
+            }
+
+            detailsObject = {...detailsObject, ...bmsItem}
+          }
+          
+          return detailsObject
+        }
     </script>
   </body>
 </html>

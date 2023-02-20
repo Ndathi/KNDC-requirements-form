@@ -22,9 +22,7 @@ h4 {
   color: #006000;
 }
 
-#clearSignPad {
-  margin-left: 50%;
-}
+  /* margin-left: 50%; */
 .challange-addinfo {
   border: solid;
   border-color: #006000;
@@ -84,15 +82,9 @@ body {
   margin-top: 20px;
 }
 
-/* #infrastructure-data {
-  border: solid;
-  border-color: #006000;
-  border-width: 2px;
-  padding: 25px;
-  border-radius: 15px;
-} */
 .service {
   margin-bottom: 20px;
+  padding-bottom: 20px;
   display: flex;
   height: 45px;
   overflow: hidden;
@@ -101,9 +93,10 @@ body {
   border-bottom: 1px solid green;
 }
 
-input[type="number"]:not(input[name="no-branches"]) {
+input[type="number"]:not(input[name="no-branches"]), input[name="sign-name"], input[name="sign-designation"] {
   border: 0;
   border-bottom: 1px solid grey;
+  border-radius: 0;
   outline: none;
 }
 
