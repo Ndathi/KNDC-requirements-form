@@ -126,7 +126,7 @@
               />
             </div>
           </div>
-        <input type="submit" id="" value="Save" class="btn btn-primary"/>
+        <input type="submit" id="orgBtn" value="Save" class="btn btn-primary"/>
         </div>
         
       </form>
@@ -535,7 +535,7 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>10</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required-1" />
+                    <input type="number" name="no-required" id="vdi-no-required-1" />
                   </td>
                 </tr>
                 <tr>
@@ -543,7 +543,7 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>15</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required-2" />
+                    <input type="number" name="no-required" id="vdi-no-required-2" />
                   </td>
                 </tr>
                 <tr>
@@ -551,7 +551,7 @@
                   <td>2 vCPU，4GiB Memory，60GB System Disk</td>
                   <td>20</td>
                   <td>
-                    <input type="number" name="no-required" id="no-required-3" />
+                    <input type="number" name="no-required" id="vdi-no-required-3" />
                   </td>
                 </tr>
               </tbody>
@@ -717,8 +717,8 @@
         contactName: "",
         contactEmail: "",
         phoneNumber: ""
-
       }
+
       form.addEventListener("submit", e => {
         e.preventDefault();
         const name = detailsForm.elements["org-name"].value;
@@ -737,6 +737,7 @@
 
         organizationDetails = {name, streetBuildingAddress, cityAndCountry, postalAddress, branches, contactName, contactEmail, phoneNumber}
 
+        document.getElementById("orgBtn").innerText = "Saved";
         // console.log(organizationDetails)
       })
 
@@ -848,16 +849,18 @@
       //onclick event listener
       vdiSaveBtn.addEventListener("click", e => {
         
-        let greaterThanOrEqualTo12Type = document.getElementById(`no-required-1`).value;
-        let sixToLessThan12 = document.getElementById(`no-required-2`).value;
-        let lessThan6 = document.getElementById(`no-required-3`).value;
+        let greaterThanOrEqualTo12Type = document.getElementById(`vdi-no-required-1`).value;
+        let sixToLessThan12 = document.getElementById(`vdi-no-required-2`).value;
+        let lessThan6 = document.getElementById(`vdi-no-required-3`).value;
 
         if(greaterThanOrEqualTo12Type){
           vdiArray.push({type: ">=12", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 10, numberRequired: greaterThanOrEqualTo12Type})
         }
+
         if(sixToLessThan12){
           vdiArray.push({type: "6 to <12", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 15, numberRequired: sixToLessThan12})
         }
+
         if(lessThan6){
           vdiArray.push({type: "<6", hardwareResources: "2 vCPU，4GiB Memory，60GB System Disk", cost: 20, numberRequired: lessThan6})
         }
@@ -1034,9 +1037,12 @@
 
         const mailObject = {
           ...buildObject(organizationDetails, infrastructureDetailsArray, vmArray, vdiArray, webArray, bmsArray),
+          challengeReason: challengeReason.value,
+          additionalInfo: infoTextArea.value,
           signedByName: signName.value,
           signedDestination: signDesignation.value,
           submissionDate: new Date().toLocaleDateString(),
+          signature: signaturePad,
         }
 
         emailjs.send('service_txzsynf', 'template_uqwwcjp', mailObject)
@@ -1046,6 +1052,7 @@
                         console.log('FAILED...', error);
                     });
                    
+
         // console.log("OrgDetails", organizationDetails["contactName"])
         // console.log("InfrastructureArray", infrastructureDetailsArray)
         // console.log("vmArray", vmArray)
@@ -1072,61 +1079,71 @@
           }
 
           if(infrastructureArray.length > 0){
+            for(let i = 0; i < infrastructureArray.length; i++){
               let infrastructureDetails = {
-                applicationName: infrastructureArray[0]["applicationName"],
-                applicationOS: infrastructureArray[0]["applicationOS"],
-                applicationCPU: infrastructureArray[0]["applicationCPU"],
-                applicationRAM: infrastructureArray[0]["applicationRAM"],
-                applicationStorage: infrastructureArray[0]["applicationStorage"],
-                applicationBandwidth: infrastructureArray[0]["applicationBandwidth"],
+                [`applicationName${i}`]: infrastructureArray[i]["applicationName"],
+                [`applicationOS${i}`]: infrastructureArray[i]["applicationOS"],
+                [`applicationCPU${i}`]: infrastructureArray[i]["applicationCPU"],
+                [`applicationRAM${i}`]: infrastructureArray[i]["applicationRAM"],
+                [`applicationStorage${i}`]: infrastructureArray[i]["applicationStorage"],
+                [`applicationBandwidth${i}`]: infrastructureArray[i]["applicationBandwidth"],
               }
 
               detailsObject = {...detailsObject, ...infrastructureDetails}
+            }
           }
           
           if(vdiArray.length > 0){
+            for(let i = 0; i < vdiArray.length; i++){
             let vdiItem = {
-              vdiType: vdiArray[0]["type"],
-              vdiHardwareResources: vdiArray[0]["hardwareResources"],
-              vdiCost: vdiArray[0]["cost"],
-              vdiNumberRequired: vdiArray[0]["numberRequired"]
+              [`vdiType${i}`]: vdiArray[i]["type"],
+              [`vdiHardwareResources${i}`]: vdiArray[i]["hardwareResources"],
+              [`vdiCost${i}`]: vdiArray[i]["cost"],
+              [`vdiNumberRequired${i}`]: vdiArray[i]["numberRequired"]
             }
 
             detailsObject = {...detailsObject, ...vdiItem}
           }
+          }
 
           if(vmArray.length > 0){
+            for(let i = 0; i < vmArray.length; i++){
               let vmItem = {
-                vmType: vmArray[0]["type"],
-                vmHardwareResources: vmArray[0]["hardwareResources"],
-                vmCost: vmArray[0]["cost"],
-                vmNumberRequired: vmArray[0]["numberRequired"],
-                vmCsbsCapacity: vmArray[0]["csbsCapacity"]
+                [`vmType${i}`]: vmArray[i]["type"],
+                [`vmHardwareResources${i}`]: vmArray[i]["vmHardwareResources"],
+                [`vmCost${i}`]: vmArray[i]["cost"],
+                [`vmNumberRequired${i}`]: vmArray[i]["numberRequired"],
+                [`vmCsbsCapacity${i}`]: vmArray[i]["csbsCapacity"]
               }
 
               detailsObject = {...detailsObject, ...vmItem}
+            }
           }
 
           if(webArray.length > 0){
+            for(let i = 0; i < webArray.length; i++){
             let webItem = {
-              webType: webArray[0]["type"],
-              webTraffic: webArray[0]["traffic"],
-              webHardwareResources: webArray[0]["hardwareResources"],
-              webCost: webArray[0]["cost"]
+              [`webType${i}`]: webArray[i]["type"],
+              [`webTraffic${i}`]: webArray[i]["traffic"],
+              [`webHardwareResources${i}`]: webArray[i]["hardwareResources"],
+              [`webCost${i}`]: webArray[i]["cost"]
             }
 
             detailsObject = {...detailsObject, ...webItem}
           }
+          }
 
           if(bmsArray.length > 0){
+            for(let i = 0; i < bmsArray.length; i++){
             let bmsItem = {
-              bmsType: bmsArray[0]["type"],
-              bmsHardwareResources: bmsArray[0]["hardwareResources"],
-              bmsCost: bmsArray[0]["cost"],
-              bmsNumberRequired: bmsArray[0]["numberRequired"],
+              [`bmsType${i}`]: bmsArray[i]["type"],
+              [`bmsHardwareResources${i}`]: bmsArray[i]["hardwareResources"],
+              [`bmsCost${i}`]: bmsArray[i]["cost"],
+              [`bmsNumberRequired${i}`]: bmsArray[i]["numberRequired"],
             }
 
             detailsObject = {...detailsObject, ...bmsItem}
+          }
           }
           
           return detailsObject
