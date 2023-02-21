@@ -16,7 +16,13 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
+    
     <div class="form" style="width: 80%">
+      <div class="headi">
+      <h2>KONZA Requirements Form</h2>
+      <img src="./public/konza logo.jpg" alt="">
+      
+    </div>
       <form action="" id="form">
         <div class="org-details">
           <h2>Details about your organization</h2>
@@ -126,11 +132,11 @@
               />
             </div>
           </div>
-        <input type="submit" id="orgBtn" value="Save" class="btn btn-primary"/>
+        <input type="submit" id="orgBtn" value="Save & Continue" class="btn btn-primary"/>
         </div>
         
       </form>
-      <div class="org-infrastructure" style="margin-top: 20px;">
+      <div class="org-infrastructure disabled" style="margin-top: 20px;" id="org-infra" >
         <div id="infrastructure-data">
            <h2>Infrastructure details</h2>
           <table class="table table-bordered table-sm" id="infrastructure-table">
@@ -208,7 +214,7 @@
         </script>
       </div>
 
-      <div class="service-interested-in" style="margin-top: 20px;">
+      <div class="service-interested-in disabled" style="margin-top: 20px;" id="serv-inte">
         <h3 class="my-4">
           Kindly select the services you are interested in at Konza National
           Data Center.
@@ -735,6 +741,9 @@
           return
         }
 
+        $("#org-infra").removeClass("disabled");
+        $("#serv-inte").removeClass("disabled");
+
         organizationDetails = {name, streetBuildingAddress, cityAndCountry, postalAddress, branches, contactName, contactEmail, phoneNumber}
 
         document.getElementById("orgBtn").innerText = "Saved";
@@ -1024,7 +1033,12 @@
         e.preventDefault()
 
         // let signatureImage = new SignaturePad(canvas);
-        signaturePad.toDataURL("image/jpeg");
+       const si= signaturePad.toDataURL("image/jpeg");
+
+       const sim= si.substring(0,30);
+       const img = signaturePad.fromDataURL(si);
+
+        
         
         if(!signName.value && !signDesignation.value){
           alert("Kindly provide your name and designation")
@@ -1042,7 +1056,7 @@
           signedByName: signName.value,
           signedDestination: signDesignation.value,
           submissionDate: new Date().toLocaleDateString(),
-          signature: signaturePad,
+          signature: sim,
         }
 
         emailjs.send('service_txzsynf', 'template_uqwwcjp', mailObject)

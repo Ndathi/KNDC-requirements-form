@@ -22,7 +22,7 @@ h4 {
   color: #006000;
 }
 
-  /* margin-left: 50%; */
+/* margin-left: 50%; */
 .challange-addinfo {
   border: solid;
   border-color: #006000;
@@ -81,6 +81,20 @@ body {
   border-radius: 15px;
   margin-top: 20px;
 }
+.headi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 5%;
+}
+
+.disabled {
+  color: grey;
+  background-color: rgb(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 .service {
   margin-bottom: 20px;
@@ -93,7 +107,9 @@ body {
   border-bottom: 1px solid green;
 }
 
-input[type="number"]:not(input[name="no-branches"]), input[name="sign-name"], input[name="sign-designation"] {
+input[type="number"]:not(input[name="no-branches"]),
+input[name="sign-name"],
+input[name="sign-designation"] {
   border: 0;
   border-bottom: 1px solid grey;
   border-radius: 0;
