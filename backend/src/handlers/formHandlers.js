@@ -1,3 +1,7 @@
+const fs = require("fs");
+const nodemailer = require("nodemailer");
+
+const PDFDocument = require("pdfkit-table");
 const {
   getWebService,
   getVdiService,
@@ -25,14 +29,16 @@ const formPostHandler = async (req, res) => {
   const org_id = await createOrganization(organizationDetails);
 
   //insert infrastructure details
-  for (let i = 0; i < req.body.infrastructureArray.length; i++) {
-    const infra_id = await createInfrastructure({
-      org_id,
-      ...req.body.infrastructureArray[i],
-    });
-  }
 
-   //insert organizational service
+  if (req.body.infrastructureArray) {
+    for (let i = 0; i < req.body.infrastructureArray.length; i++) {
+      const infra_id = await createInfrastructure({
+        org_id,
+        ...req.body.infrastructureArray[i],
+      });
+    }
+  }
+  //insert organizational service
   if (req.body.webArray) {
     for (let i = 0; i < req.body.webArray.length; i++) {
       const infra_id = await createService({
@@ -99,9 +105,507 @@ const formPostHandler = async (req, res) => {
       });
     }
   }
-  
+
   // handling sending email
   await handleSendingEmail(req, organizationDetails);
+};
+
+const sendEmail = async (datum) => {
+  //creating the pdf document
+
+  // init document
+  let doc = new PDFDocument({ margin: 30, size: "A4" });
+  // save document
+  doc.pipe(fs.createWriteStream("./document.pdf"));
+
+  (async function createTable() {
+    // table
+
+    doc.image("./konza logo.jpg", {
+      fit: [150, 150],
+      align: "center",
+      valign: "center",
+    });
+
+    const orgTable = {
+      title: "Organisation Details",
+      addPage: true,
+      headers: [
+        { label: "org_name", property: "name", width: 60, renderer: null },
+        {
+          label: "street_building",
+          property: "street",
+          width: 60,
+          renderer: null,
+        },
+        { label: "city_country", property: "city", width: 60, renderer: null },
+        {
+          label: "postal_address",
+          property: "posta",
+          width: 60,
+          renderer: null,
+        },
+        { label: "branches", property: "branches", width: 60, renderer: null },
+        {
+          label: "contact-name",
+          property: "contactName",
+          width: 60,
+          renderer: null,
+        },
+        {
+          label: "contact-email",
+          property: "contactEmail",
+          width: 60,
+          renderer: null,
+        },
+        {
+          label: "phonenumber",
+          property: "phone",
+          width: 60,
+          renderer: (value, indexColumn, indexRow, row, rectRow, rectCell) => {
+            return `U$ ${Number(value).toFixed(2)}`;
+          },
+        },
+      ],
+      datas: [
+        /* complex data */
+        {
+          name: datum.organizationDetails.org_name,
+          street: datum.organizationDetails.street_building,
+          city: datum.organizationDetails.city_country,
+          posta: datum.organizationDetails.postal_address,
+          branches: datum.organizationDetails.branches,
+          contactName: datum.organizationDetails.contact_name,
+          contactEmail: datum.organizationDetails.contact_email,
+          phone: datum.organizationDetails.phonenumber,
+        },
+      ],
+    };
+    await doc.table(orgTable, {
+      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+        doc.font("Helvetica").fontSize(8);
+        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+      },
+    });
+
+    // checking array is not empty collecting an array of objects containing the multiple infrastructure details
+    if (datum.infrastructureArray) {
+      const infraData = [];
+      for (var i = 0; i < datum.infrastructureArray.length; i++) {
+        let dt = {
+          name: datum.infrastructureArray[i].application_name,
+          os: datum.infrastructureArray[i].operating_system,
+          cpu: datum.infrastructureArray[i].application_cpu,
+          ram: datum.infrastructureArray[i].application_ram,
+          storage: datum.infrastructureArray[i].application_storage,
+
+          bandwidth: datum.infrastructureArray[i].application_bandwidth,
+        };
+        infraData.push(dt);
+      }
+
+      //creating the infrastructure table
+      const infrastructureTable = {
+        title: "Infrustructure Details",
+        addPage: true,
+        headers: [
+          {
+            label: "Application",
+            property: "name",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Operating System",
+            property: "os",
+            width: 100,
+            renderer: null,
+          },
+          { label: "CPU", property: "cpu", width: 100, renderer: null },
+          { label: "RAM", property: "ram", width: 100, renderer: null },
+          { label: "Storage", property: "storage", width: 100, renderer: null },
+
+          {
+            label: "Bandwidth",
+            property: "bandwidth",
+            width: 100,
+            renderer: (
+              value,
+              indexColumn,
+              indexRow,
+              row,
+              rectRow,
+              rectCell
+            ) => {
+              return `U$ ${Number(value).toFixed(2)}`;
+            },
+          },
+        ],
+        datas: infraData,
+      };
+
+      await doc.table(infrastructureTable, {
+        prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+          doc.font("Helvetica").fontSize(8);
+          indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+        },
+      });
+    }
+    //collecting an array of objects containing the multiple  BMS Service details
+
+    if (datum.bmsServices) {
+      const bmsData = [];
+      for (var i = 0; i < datum.bmsServices.length; i++) {
+        let dt = {
+          type: datum.bmsServices[i].type,
+          resources: datum.bmsServices[i].hardware_resources,
+          number: datum.bmsServices[i].number_required,
+          cost:
+            datum.bmsServices[i].item_cost *
+            datum.bmsServices[i].number_required,
+        };
+        bmsData.push(dt);
+      }
+
+      //creating the BMS SERVICES table
+      const bmsTable = {
+        title: "BMS Service Details",
+        addPage: true,
+        headers: [
+          { label: "BMS Type", property: "type", width: 100, renderer: null },
+          {
+            label: "Hardware Resources",
+            property: "resources",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Number Required",
+            property: "number",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Total Cost",
+            property: "cost",
+            width: 100,
+            renderer: (
+              value,
+              indexColumn,
+              indexRow,
+              row,
+              rectRow,
+              rectCell
+            ) => {
+              return `U$ ${Number(value).toFixed(2)}`;
+            },
+          },
+        ],
+        datas: bmsData,
+      };
+
+      await doc.table(bmsTable, {
+        prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+          doc.font("Helvetica").fontSize(8);
+          indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+        },
+      });
+    }
+
+    //collecting an array of objects containing the multiple  VDI Service details
+    if (datum.vdiServices) {
+      const vdiData = [];
+      for (var i = 0; i < datum.vdiServices.length; i++) {
+        let dt = {
+          type: datum.vdiServices[i].type,
+          resources: datum.vdiServices[i].hardware_resources,
+          number: datum.vdiServices[i].number_required,
+          cost:
+            datum.vdiServices[i].item_cost *
+            datum.vdiServices[i].number_required,
+        };
+        vdiData.push(dt);
+      }
+
+      //creating the vdi SERVICES table
+      const vdiTable = {
+        title: "VDI Service Details",
+        addPage: true,
+        headers: [
+          { label: "VDI Type", property: "type", width: 100, renderer: null },
+          {
+            label: "Hardware Resources",
+            property: "resources",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Number Required",
+            property: "number",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Total Cost",
+            property: "cost",
+            width: 100,
+            renderer: (
+              value,
+              indexColumn,
+              indexRow,
+              row,
+              rectRow,
+              rectCell
+            ) => {
+              return `U$ ${Number(value).toFixed(2)}`;
+            },
+          },
+        ],
+        datas: vdiData,
+      };
+
+      await doc.table(vdiTable, {
+        prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+          doc.font("Helvetica").fontSize(8);
+          indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+        },
+      });
+    }
+
+    //collecting an array of objects containing the multiple  VM Service details
+    if (datum.vmServices) {
+      const vmData = [];
+      for (var i = 0; i < datum.vmServices.length; i++) {
+        let dt = {
+          type: datum.vmServices[i].type,
+          resources: datum.vmServices[i].hardware_resources,
+          number: datum.vmServices[i].number_required,
+          csbs_number: datum.vmServices[i].csbs_required,
+          cost:
+            datum.vmServices[i].item_cost * datum.vmServices[i].number_required,
+        };
+        vmData.push(dt);
+      }
+
+      //creating the VM SERVICES table
+      const vmTable = {
+        title: "VM Service Details",
+        addPage: true,
+        headers: [
+          { label: "BMS Type", property: "type", width: 100, renderer: null },
+          {
+            label: "Hardware Resources",
+            property: "resources",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Number Required",
+            property: "number",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "CSBS Required",
+            property: "csbs_number",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Total Cost",
+            property: "cost",
+            width: 100,
+            renderer: (
+              value,
+              indexColumn,
+              indexRow,
+              row,
+              rectRow,
+              rectCell
+            ) => {
+              return `U$ ${Number(value).toFixed(2)}`;
+            },
+          },
+        ],
+        datas: vmData,
+      };
+      await doc.table(vmTable, {
+        prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+          doc.font("Helvetica").fontSize(8);
+          indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+        },
+      });
+    }
+
+    //collecting an array of objects containing the multiple  Web Hosting Service details
+    if (datum.webHostingServices) {
+      const webHostingData = [];
+      for (var i = 0; i < datum.webHostingServices.length; i++) {
+        let dt = {
+          type: datum.webHostingServices[i].type,
+          resources: datum.webHostingServices[i].hardware_resources,
+          cost: datum.webHostingServices[i].yearly_cost,
+        };
+        webHostingData.push(dt);
+      }
+
+      //creating the web hosting  SERVICES table
+      const webHostingTable = {
+        title: "Web Hosting Service Details",
+        addPage: true,
+        headers: [
+          { label: "Type", property: "type", width: 100, renderer: null },
+          {
+            label: "Hardware Resources",
+            property: "resources",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "Cost",
+            property: "cost",
+            width: 100,
+            renderer: (
+              value,
+              indexColumn,
+              indexRow,
+              row,
+              rectRow,
+              rectCell
+            ) => {
+              return `U$ ${Number(value).toFixed(2)}`;
+            },
+          },
+        ],
+        datas: webHostingData,
+      };
+
+      await doc.table(webHostingTable, {
+        prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+        prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+          doc.font("Helvetica").fontSize(8);
+          indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+        },
+      });
+    }
+    //creating the challanges faced table
+    const challangeTable = {
+      title: "Challanges",
+      addPage: true,
+      headers: [
+        {
+          label: "challenges",
+          property: "challanges",
+          width: 550,
+          renderer: null,
+        },
+      ],
+      datas: [{ challanges: datum.challenges }],
+    };
+    await doc.table(challangeTable, {
+      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+        doc.font("Helvetica").fontSize(8);
+        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+      },
+    });
+
+    //creating the additional information table
+    const additionalTable = {
+      title: "Additional Information",
+      addPage: true,
+      headers: [
+        {
+          label: "additional information",
+          property: "add_info",
+          width: 550,
+          renderer: null,
+        },
+      ],
+      datas: [{ add_info: datum.additional_info }],
+    };
+
+    await doc.table(additionalTable, {
+      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+        doc.font("Helvetica").fontSize(8);
+        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+      },
+    });
+
+    const designationTable = {
+      title: "Signers Designation",
+      addPage: true,
+      headers: [
+        {
+          label: "Designation",
+          property: "designation",
+          width: 550,
+          renderer: null,
+        },
+      ],
+      datas: [{ designation: datum.signed_by_designation }],
+    };
+
+    await doc.table(designationTable, {
+      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
+      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
+        doc.font("Helvetica").fontSize(8);
+        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
+      },
+    });
+
+    //converting the base 64 signature encoding back to and image
+    // Convert base64 to buffer
+    const base64 = datum.signature.slice(22);
+    const buffer = Buffer.from(base64, "base64");
+
+    // Pipes an image with "new-path.jpg" as the name.
+    fs.writeFileSync("./signature.png", buffer);
+
+    //adding the converted image signature to the pdf
+
+    doc.image("./signature.png", {
+      fit: [250, 300],
+      align: "center",
+      valign: "center",
+    });
+
+    doc.end();
+  })();
+
+  //creating an email transporter
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  //2.Define the email options
+  const mailOptions = {
+    from: "Ian Ndathi <ndathiian@gmail.com>",
+    to: "ianndathi35@gmail.com",
+    subject: "brary baika",
+    text: "benz and fitting",
+    attachments: [
+      {
+        filename: "requirements form data.pdf",
+        path: "./document.pdf",
+      },
+    ],
+  };
+  //3.Actually send the email
+  await transporter.sendMail(mailOptions).then(console.log("sending done!!"));
 };
 
 const handleSendingEmail = async (req, organizationDetails) => {
@@ -109,14 +613,17 @@ const handleSendingEmail = async (req, organizationDetails) => {
   let bmsServices = [];
   let vmServices = [];
   let webHostingServices = [];
-  let pdfObject = { organizationDetails, infrastructureArray: req.body.infrastructureArray };
+  let pdfObject = {
+    organizationDetails,
+    infrastructureArray: req.body.infrastructureArray,
+  };
 
   if (req.body.bmsArray) {
     for (let i = 0; i < req.body.bmsArray.length; i++) {
-      let service = await getBmsService(req.body.bmsArray[i].bms_id)
+      let service = await getBmsService(req.body.bmsArray[i].bms_id);
       bmsServices.push({
         number_required: req.body.bmsArray[i].number_required,
-        ...service
+        ...service,
       });
     }
     pdfObject = { ...pdfObject, bmsServices };
@@ -124,10 +631,10 @@ const handleSendingEmail = async (req, organizationDetails) => {
 
   if (req.body.vdiArray) {
     for (let i = 0; i < req.body.vdiArray.length; i++) {
-      let service = await getVdiService(req.body.vdiArray[i].vdi_id)
+      let service = await getVdiService(req.body.vdiArray[i].vdi_id);
       vdiServices.push({
         number_required: req.body.vdiArray[i].number_required,
-        ...service
+        ...service,
       });
     }
     pdfObject = { ...pdfObject, vdiServices };
@@ -135,11 +642,11 @@ const handleSendingEmail = async (req, organizationDetails) => {
 
   if (req.body.vmArray) {
     for (let i = 0; i < req.body.vmArray.length; i++) {
-      let service = await getVmService(req.body.vmArray[i].vm_id)
+      let service = await getVmService(req.body.vmArray[i].vm_id);
       vmServices.push({
         number_required: req.body.vmArray[i].number_required,
         csbs_required: req.body.vmArray[i].csbs_required,
-        ...service
+        ...service,
       });
     }
 
@@ -148,16 +655,33 @@ const handleSendingEmail = async (req, organizationDetails) => {
 
   if (req.body.webArray) {
     for (let i = 0; i < req.body.webArray.length; i++) {
-      let service = await getWebService(req.body.webArray[i].web_id) 
+      let service = await getWebService(req.body.webArray[i].web_id);
       webHostingServices.push({
-        ...service
+        ...service,
       });
     }
-    
+
     pdfObject = { ...pdfObject, webHostingServices };
   }
 
+  if (req.body.challengeReason) {
+    pdfObject = { ...pdfObject, challenges: req.body.challengeReason };
+  }
+
+  if (req.body.additionalInfo) {
+    pdfObject = { ...pdfObject, additional_info: req.body.additionalInfo };
+  }
+
+  pdfObject = { ...pdfObject, signed_by: req.body.signedByName };
+  pdfObject = {
+    ...pdfObject,
+    signed_by_designation: req.body.signedDesignation,
+  };
+  pdfObject = { ...pdfObject, signature: req.body.signature };
+
   console.log("PDFObject", pdfObject);
+
+  await sendEmail(pdfObject);
 };
 
 module.exports = { formPostHandler };
