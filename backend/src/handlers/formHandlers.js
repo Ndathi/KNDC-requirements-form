@@ -114,7 +114,7 @@ const sendEmail = async (datum) => {
   //creating the pdf document
 
   // init document
-  let doc = new PDFDocument({ margin: 30, size: "A4" });
+  let doc = new PDFDocument();
   // save document
   doc.pipe(fs.createWriteStream("./document.pdf"));
 
@@ -122,9 +122,11 @@ const sendEmail = async (datum) => {
     // table
 
     doc.image("./konza logo.jpg", {
-      fit: [150, 150],
+
+      fit: [40, 40],
       align: "center",
       valign: "center",
+      addPage:true
     });
 
     const orgTable = {
@@ -593,10 +595,10 @@ const sendEmail = async (datum) => {
 
   //2.Define the email options
   const mailOptions = {
-    from: "Ian Ndathi <ndathiian@gmail.com>",
+    from: datum.organizationDetails.contact_email,
     to: "ianndathi35@gmail.com",
-    subject: "brary baika",
-    text: "benz and fitting",
+    subject: `Filled KNDC requirements from ${datum.organizationDetails.org_name}`,
+    text: "Please find the filled requirements form attached",
     attachments: [
       {
         filename: "requirements form data.pdf",

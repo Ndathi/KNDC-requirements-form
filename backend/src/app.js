@@ -4,7 +4,7 @@ const cors = require("cors");
 // load handlers
 const { formPostHandler } = require("./handlers/formHandlers");
 
-const sendMail = require("./handlers/email");
+
 
 // app
 const app = express();
@@ -20,7 +20,7 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/form", formPostHandler);
-app.post("/sendemail",sendMail)
+
 
 
 module.exports = app;
