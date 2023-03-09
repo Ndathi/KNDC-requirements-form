@@ -10,7 +10,6 @@ const {
   createOrganization,
   createInfrastructure,
   createService,
-  getAllServices,
 } = require("../controllers/helpers");
 
 const formPostHandler = async (req, res) => {
@@ -122,11 +121,10 @@ const sendEmail = async (datum) => {
     // table
 
     doc.image("./konza logo.jpg", {
-
       fit: [40, 40],
       align: "center",
       valign: "center",
-      addPage:true
+      addPage: true,
     });
 
     const orgTable = {
@@ -201,7 +199,6 @@ const sendEmail = async (datum) => {
           cpu: datum.infrastructureArray[i].application_cpu,
           ram: datum.infrastructureArray[i].application_ram,
           storage: datum.infrastructureArray[i].application_storage,
-
           bandwidth: datum.infrastructureArray[i].application_bandwidth,
         };
         infraData.push(dt);
@@ -224,24 +221,15 @@ const sendEmail = async (datum) => {
             width: 100,
             renderer: null,
           },
-          { label: "CPU", property: "cpu", width: 100, renderer: null },
-          { label: "RAM", property: "ram", width: 100, renderer: null },
-          { label: "Storage", property: "storage", width: 100, renderer: null },
+          { label: "CPU", property: "cpu", width: 70, renderer: null },
+          { label: "RAM", property: "ram", width: 70, renderer: null },
+          { label: "Storage", property: "storage", width: 70, renderer: null },
 
           {
             label: "Bandwidth",
             property: "bandwidth",
-            width: 100,
-            renderer: (
-              value,
-              indexColumn,
-              indexRow,
-              row,
-              rectRow,
-              rectCell
-            ) => {
-              return `U$ ${Number(value).toFixed(2)}`;
-            },
+            width: 70,
+            renderer: null,
           },
         ],
         datas: infraData,
@@ -452,6 +440,7 @@ const sendEmail = async (datum) => {
           type: datum.webHostingServices[i].type,
           resources: datum.webHostingServices[i].hardware_resources,
           cost: datum.webHostingServices[i].yearly_cost,
+          traffic: datum.webHostingServices[i].traffic,
         };
         webHostingData.push(dt);
       }
@@ -483,6 +472,12 @@ const sendEmail = async (datum) => {
               return `U$ ${Number(value).toFixed(2)}`;
             },
           },
+          {
+            label: "Traffic",
+            property: "traffic",
+            width: 100,
+            renderer: null,
+          },
         ],
         datas: webHostingData,
       };
@@ -495,71 +490,51 @@ const sendEmail = async (datum) => {
         },
       });
     }
-    //creating the challanges faced table
-    const challangeTable = {
-      title: "Challanges",
-      addPage: true,
-      headers: [
-        {
-          label: "challenges",
-          property: "challanges",
-          width: 550,
-          renderer: null,
-        },
-      ],
-      datas: [{ challanges: datum.challenges }],
-    };
-    await doc.table(challangeTable, {
-      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
-      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
-        doc.font("Helvetica").fontSize(8);
-        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
-      },
+
+    doc.moveDown();
+    doc.font("Helvetica-Bold").fontSize(12).text(`Challenges`, {
+      width: 410,
+      align: "justify",
+    });
+    doc.font("Helvetica").fontSize(10).text(`${datum.challenges}`, {
+      width: 410,
+      align: "justify",
+    });
+    doc.moveDown();
+
+    doc.moveDown();
+    doc.font("Helvetica-Bold").fontSize(12).text(`Additional info`, {
+      width: 410,
+      align: "justify",
+    });
+    doc.font("Helvetica").fontSize(10).text(`${datum.additional_info}`, {
+      width: 410,
+      align: "justify",
+    });
+    doc.moveDown();
+
+    doc.moveDown();
+    doc.font("Helvetica-Bold").fontSize(12).text(`Signature Details`, {
+      width: 410,
+      align: "justify",
     });
 
-    //creating the additional information table
-    const additionalTable = {
-      title: "Additional Information",
-      addPage: true,
-      headers: [
-        {
-          label: "additional information",
-          property: "add_info",
-          width: 550,
-          renderer: null,
-        },
-      ],
-      datas: [{ add_info: datum.additional_info }],
-    };
-
-    await doc.table(additionalTable, {
-      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
-      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
-        doc.font("Helvetica").fontSize(8);
-        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
-      },
+    doc.font("Helvetica").fontSize(10).text(`Signed By:   ${datum.signed_by}`, {
+      width: 500,
+      align: "justify",
     });
 
-    const designationTable = {
-      title: "Signers Designation",
-      addPage: true,
-      headers: [
-        {
-          label: "Designation",
-          property: "designation",
-          width: 550,
-          renderer: null,
-        },
-      ],
-      datas: [{ designation: datum.signed_by_designation }],
-    };
-
-    await doc.table(designationTable, {
-      prepareHeader: () => doc.font("Helvetica-Bold").fontSize(8),
-      prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => {
-        doc.font("Helvetica").fontSize(8);
-        indexColumn === 0 && doc.addBackground(rectRow, "white", 0.15);
-      },
+    doc
+      .font("Helvetica")
+      .fontSize(10)
+      .text(`Designation:     ${datum.signed_by_designation}`, {
+        width: 500,
+        align: "justify",
+      });
+      doc.moveDown()
+    doc.font("Helvetica-Bold").fontSize(12).text(`Signature`, {
+      width: 500,
+      align: "justify",
     });
 
     //converting the base 64 signature encoding back to and image
@@ -571,12 +546,13 @@ const sendEmail = async (datum) => {
     fs.writeFileSync("./signature.png", buffer);
 
     //adding the converted image signature to the pdf
-
     doc.image("./signature.png", {
-      fit: [250, 300],
+      fit: [250, 180],
       align: "center",
       valign: "center",
     });
+
+    doc.moveDown();
 
     doc.end();
   })();
