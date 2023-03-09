@@ -13,6 +13,8 @@ const {
 } = require("../controllers/helpers");
 
 const formPostHandler = async (req, res) => {
+  // Do the normal stuff for this function
+
   let organizationDetails = {
     org_name: req.body.name,
     street_building: req.body.streetBuildingAddress,
@@ -28,7 +30,6 @@ const formPostHandler = async (req, res) => {
   const org_id = await createOrganization(organizationDetails);
 
   //insert infrastructure details
-
   if (req.body.infrastructureArray) {
     for (let i = 0; i < req.body.infrastructureArray.length; i++) {
       const infra_id = await createInfrastructure({
@@ -37,7 +38,8 @@ const formPostHandler = async (req, res) => {
       });
     }
   }
-  //insert organizational service
+
+  //insert web data
   if (req.body.webArray) {
     for (let i = 0; i < req.body.webArray.length; i++) {
       const infra_id = await createService({
@@ -54,7 +56,7 @@ const formPostHandler = async (req, res) => {
       });
     }
   }
-
+  //insert vdi data
   if (req.body.vdiArray) {
     for (let i = 0; i < req.body.vdiArray.length; i++) {
       const vdi_id = await createService({
@@ -71,6 +73,7 @@ const formPostHandler = async (req, res) => {
       });
     }
   }
+  //insert bms data
   if (req.body.bmsArray) {
     for (let i = 0; i < req.body.bmsArray.length; i++) {
       const vm_id = await createService({
@@ -87,7 +90,7 @@ const formPostHandler = async (req, res) => {
       });
     }
   }
-
+  //insert vm data
   if (req.body.vmArray) {
     for (let i = 0; i < req.body.vmArray.length; i++) {
       const bms_id = await createService({
@@ -491,27 +494,31 @@ const sendEmail = async (datum) => {
       });
     }
 
-    doc.moveDown();
-    doc.font("Helvetica-Bold").fontSize(12).text(`Challenges`, {
-      width: 410,
-      align: "justify",
-    });
-    doc.font("Helvetica").fontSize(10).text(`${datum.challenges}`, {
-      width: 410,
-      align: "justify",
-    });
-    doc.moveDown();
+    if (datum.challenges) {
+      doc.moveDown();
+      doc.font("Helvetica-Bold").fontSize(12).text(`Challenges`, {
+        width: 410,
+        align: "justify",
+      });
+      doc.font("Helvetica").fontSize(10).text(`${datum.challenges}`, {
+        width: 410,
+        align: "justify",
+      });
+      doc.moveDown();
+    }
 
-    doc.moveDown();
-    doc.font("Helvetica-Bold").fontSize(12).text(`Additional info`, {
-      width: 410,
-      align: "justify",
-    });
-    doc.font("Helvetica").fontSize(10).text(`${datum.additional_info}`, {
-      width: 410,
-      align: "justify",
-    });
-    doc.moveDown();
+    if (datum.additional_info) {
+      doc.moveDown();
+      doc.font("Helvetica-Bold").fontSize(12).text(`Additional info`, {
+        width: 410,
+        align: "justify",
+      });
+      doc.font("Helvetica").fontSize(10).text(`${datum.additional_info}`, {
+        width: 410,
+        align: "justify",
+      });
+      doc.moveDown();
+    }
 
     doc.moveDown();
     doc.font("Helvetica-Bold").fontSize(12).text(`Signature Details`, {
@@ -531,7 +538,7 @@ const sendEmail = async (datum) => {
         width: 500,
         align: "justify",
       });
-      doc.moveDown()
+    doc.moveDown();
     doc.font("Helvetica-Bold").fontSize(12).text(`Signature`, {
       width: 500,
       align: "justify",
@@ -571,7 +578,7 @@ const sendEmail = async (datum) => {
 
   //2.Define the email options
   const mailOptions = {
-    from: datum.organizationDetails.contact_email,
+    from: "ianndathi35@gmail.com",
     to: "ianndathi35@gmail.com",
     subject: `Filled KNDC requirements from ${datum.organizationDetails.org_name}`,
     text: "Please find the filled requirements form attached",
@@ -582,8 +589,9 @@ const sendEmail = async (datum) => {
       },
     ],
   };
+
   //3.Actually send the email
-  await transporter.sendMail(mailOptions).then(console.log("sending done!!"));
+  await transporter.sendMail(mailOptions);
 };
 
 const handleSendingEmail = async (req, organizationDetails) => {
